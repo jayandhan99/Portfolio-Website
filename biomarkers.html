@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Behavior Analysis</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    header nav {
+      text-align: left;
+      padding: 1rem;
+    }
+    .logo {
+      font-size: 1.2rem;
+      color: #7FDBFF;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+    .project-details h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    section {
+      text-align: justify;
+      margin-bottom: 30px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 15px auto;
+    }
+    .image-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .image-row img {
+      width: 30%;
+    }
+    .half-width img {
+      width: 45%;
+    }
+    ul {
+      text-align: left;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #111;
+      margin-top: 20px;
+    }
+    .cta {
+      color: #7FDBFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html"><span class="logo">HOME</span></a>
+    </nav>
+  </header>
+
+  <main class="project-details">
+    <h2>Pricing Strategy & Customer Ordering Behavior Analysis</h2>
+
+    <section>
+      <h3>Dataset Understanding</h3>
+      <p>
+        In the evolving restaurant industry, data-driven decision-making is crucial for both new and established businesses. This project uses real-world restaurant data to solve two core problems using machine learning:
+      </p>
+
+      <ul>
+        <li>Predicting the cost for two people based on restaurant characteristics.</li>
+        <li>Classifying whether an order is placed online or offline.</li>
+      </ul>
+
+      <p>
+        These insights help restaurants optimize their pricing strategies and digital operations, while giving platforms like Zomato valuable tools to support their partners. Using a mix of regression and classification models, the project delivers actionable business recommendations powered by interpretable machine learning.
+      </p>
+
+
+
+      <h3>Data Preprocessing</h3>
+      <p>
+        The raw dataset initially contained several formatting issues, including missing values, categorical strings, and unnecessary columns. Label encoding was applied to handle categorical variables, missing cost and rating data were filled using median imputation, and feature scaling was performed. These preprocessing steps cleaned and prepared the dataset for regression modeling.      
+      </p>
+
+      <h3>Exploratory Data Analysis</h3>
+      <p>
+        The distribution of the target variable — cost for two people — showed a clear right skew, with a few restaurants being significantly more expensive. Missing values in key columns such as rate and cost were handled using median imputation. Irrelevant fields were removed, categorical variables were label-encoded, and numerical features were scaled using StandardScaler. These preprocessing steps ensured the dataset was clean and compatible with both regression and classification models. To assess feature significance, t-tests were performed, revealing strong correlations between cost and features such as location, rating, and restaurant type.
+      </p>
+
+      <h3>Modeling</h3>
+      <p>
+        Initial modeling began with simple linear regression, which exhibited clear underfitting. The relationship between features such as restaurant type and price was found to be non-linear, prompting a shift to tree-based models. Among these, Random Forest performed best out of the box, achieving a test R² score of 0.96. 
+      </p>
+      <img src="D:/portfolio/Portfolio-Website/img/zomato/without tuning.jpg" alt="Combination Scatter Plot" width="600" height="500">
+
+      <p>
+        RandomizedSearchCV was employed to tune the Random Forest model and address overfitting. Interestingly, the untuned model produced a lower test RMSE but showed signs of overfitting due to an extremely low training error. After tuning, the model became more generalizable and balanced, albeit with a slightly higher RMSE. This demonstrated that hyperparameter tuning is not solely focused on maximizing accuracy, but rather on enhancing model consistency and fairness on unseen data. 
+      </p>
+      <img src="D:/portfolio/Portfolio-Website/img/zomato/with tuning.png" alt="Combination Scatter Plot" width="600" height="500">
+
+      <h3>Insights & Feature Interpretation</h3>
+
+      <p>
+        To interpret the model, feature importances from a decision tree were analyzed. The most influential predictors of cost were found to be book_table and rest_type, which aligns with expectations, as premium restaurants often require reservations. In contrast, online_order showed minimal impact on pricing decisions. 
+      </p>
+      <img src="D:/portfolio/Portfolio-Website/img/zomato/regression feature.png" alt="Combination Scatter Plot" width="600" height="500">
+      <ul>
+        <li>Table booking availability and restaurant type are the strongest predictors of cost — these are operational choices owners can control.</li>
+        <li>Customer engagement metrics like votes and ratings, while useful for reviews, play a smaller role in predicting actual pricing.</li>
+        <li>Features like online ordering and city listing have negligible impact on pricing strategy.</li>
+      </ul>
+      <p>
+        For restaurants aiming to position themselves as premium or justify higher pricing, offering table reservations and adopting higher-end formats such as fine dining can serve as strong signals of value to customers. These features are commonly associated with upscale experiences and may influence customer perception and willingness to pay.
+      </p>
+
+
+      <h2>What Influences Online Orders: A Classification Approach</h2>
+      <p>Analyzing restaurant features to classify and understand the likelihood of online ordering.</p>
+
+      <h3>Exploratory Data Analysis</h3>
+      <p>Analysis of the dataset revealed that online orders outnumber offline ones, indicating that online ordering is the most common behavior among restaurants. A grouped bar chart comparing order types across locations showed that areas such as Koramangala, BTM, and Indiranagar have significantly higher volumes of online orders. This suggests that location plays a key role, with more urban or central areas favoring online ordering.
+
+        A boxplot comparing the approximate cost for two people by order type revealed a clear pattern: online orders are more prevalent in the low-to-mid cost range, while high-cost restaurants predominantly rely on offline (dine-in or fine dining) orders. This indicates an inverse correlation between cost and the likelihood of online ordering.
+      </p>
+
+      <h3>Statistical Testing</h3>
+      <p>To statistically validate the exploratory findings, ANOVA and Pearson correlation tests were conducted. Several continuous features—such as cost, rating, location, and restaurant type—exhibited statistically significant relationships with online ordering behavior. In contrast, none of the original categorical variables showed significance through ANOVA, likely due to the effects of label encoding. These insights informed and refined the feature selection process for the subsequent classification model.
+      </p>
+      <h3>Model Performance</h3>
+
+      <img src="D:/portfolio/Portfolio-Website/img/zomato/classification.png" alt="Combination Scatter Plot" width="600" height="500">
+      <p>Multiple classification models were benchmarked to predict online ordering behavior. Among them, Random Forest delivered the best overall performance, achieving 89% accuracy and an F1 score of 0.91—indicating strong balance in handling both classes. Cohen’s Kappa was also used to assess agreement beyond chance, with Random Forest again scoring highest, reinforcing its reliability. While models such as XGBoost and KNN performed well, Random Forest provided the optimal trade-off between predictive performance and interpretability.
+      </p>
+
+      <h3>Feature Importance</h3>
+      <img src="D:/portfolio/Portfolio-Website/img/zomato/classification feature.png" alt="Combination Scatter Plot" width="600" height="500">
+      <p>After training the Random Forest classifier, feature importance analysis was conducted to identify key drivers of online ordering behavior. The results showed that popularity (measured by vote count) and cuisine variety were the most influential factors. Lower-cost restaurants also tended to receive more online orders, aligning with the notion that customers often reserved dine-in experiences for premium occasions but prefer online orders for quick, affordable meals.
+
+        Interestingly, restaurant rating had comparatively lower influence, suggesting that when it comes to online ordering, customers may prioritize availability, variety, and cost over reviews or ratings.
+      </p>
+
+      <h3>Inference</h3>
+      <p>This project demonstrates how the same restaurant dataset can be leveraged to solve two different real-world problems:</p>
+      <ul>
+        <li>Helping new restaurants price smartly</li>
+        <li>Helping existing restaurants adapt for online customer behavior</li>
+      </ul>
+
+      <p>By combining regression and classification models with EDA and statistical testing, we were able to uncover data-driven, actionable insights that can guide both operational decisions and digital strategy for restaurant businesses.
+      </p>
+      
+      <div style="margin-top: 2rem;">
+        <a href="index.html" class="cta">← Back to Portfolio</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Designed and Developed by <span>Jayandhan</span></p>
+  </footer>
+</body>
+</html>
