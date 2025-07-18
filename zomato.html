@@ -112,19 +112,19 @@
       <p>
         Initial modeling began with simple linear regression, which exhibited clear underfitting. The relationship between features such as restaurant type and price was found to be non-linear, prompting a shift to tree-based models. Among these, Random Forest performed best out of the box, achieving a test R² score of 0.96. 
       </p>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/without tuning.jpg" alt="Combination Scatter Plot" width="600" height="500">
+      <img src="img/zomato/without tuning.jpg" alt="Combination Scatter Plot" width="600" height="500">
 
       <p>
         RandomizedSearchCV was employed to tune the Random Forest model and address overfitting. Interestingly, the untuned model produced a lower test RMSE but showed signs of overfitting due to an extremely low training error. After tuning, the model became more generalizable and balanced, albeit with a slightly higher RMSE. This demonstrated that hyperparameter tuning is not solely focused on maximizing accuracy, but rather on enhancing model consistency and fairness on unseen data. 
       </p>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/with tuning.png" alt="Combination Scatter Plot" width="600" height="500">
+      <img src="img/zomato/with tuning.png" alt="Combination Scatter Plot" width="600" height="500">
 
       <h3>Insights & Feature Interpretation</h3>
 
       <p>
         To interpret the model, feature importances from a decision tree were analyzed. The most influential predictors of cost were found to be book_table and rest_type, which aligns with expectations, as premium restaurants often require reservations. In contrast, online_order showed minimal impact on pricing decisions. 
       </p>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/regression feature.png" alt="Combination Scatter Plot" width="600" height="500">
+      <img src="img/zomato/regression feature.png" alt="Combination Scatter Plot" width="600" height="500">
       <ul>
         <li>Table booking availability and restaurant type are the strongest predictors of cost — these are operational choices owners can control.</li>
         <li>Customer engagement metrics like votes and ratings, while useful for reviews, play a smaller role in predicting actual pricing.</li>
@@ -149,12 +149,12 @@
       </p>
       <h3>Model Performance</h3>
 
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/classification.png" alt="Combination Scatter Plot" width="600" height="500">
+      <img src="img/zomato/classification.png" alt="Combination Scatter Plot" width="600" height="500">
       <p>Multiple classification models were benchmarked to predict online ordering behavior. Among them, Random Forest delivered the best overall performance, achieving 89% accuracy and an F1 score of 0.91—indicating strong balance in handling both classes. Cohen’s Kappa was also used to assess agreement beyond chance, with Random Forest again scoring highest, reinforcing its reliability. While models such as XGBoost and KNN performed well, Random Forest provided the optimal trade-off between predictive performance and interpretability.
       </p>
 
       <h3>Feature Importance</h3>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/classification feature.png" alt="Combination Scatter Plot" width="600" height="500">
+      <img src="img/zomato/classification feature.png" alt="Combination Scatter Plot" width="600" height="500">
       <p>After training the Random Forest classifier, feature importance analysis was conducted to identify key drivers of online ordering behavior. The results showed that popularity (measured by vote count) and cuisine variety were the most influential factors. Lower-cost restaurants also tended to receive more online orders, aligning with the notion that customers often reserved dine-in experiences for premium occasions but prefer online orders for quick, affordable meals.
 
         Interestingly, restaurant rating had comparatively lower influence, suggesting that when it comes to online ordering, customers may prioritize availability, variety, and cost over reviews or ratings.
