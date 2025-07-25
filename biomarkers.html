@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Customer Behavior Analysis</title>
+  <title>Biomarkers of Aging</title>
   <style>
     body {
       margin: 0;
@@ -70,7 +70,26 @@
     }
   </style>
 </head>
+<head>
+  <meta charset="UTF-8">
+  <title>2x3 Image Grid</title>
+  <style>
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      gap: 15px; /* space between images */
+      max-width: 1000px;
+      margin: 20px auto;
+    }
 
+    .image-grid img {
+      width: 300px;
+      height: 180px;
+      display: block;
+      border-radius: 8px;
+    }
+  </style>
+</head>
 <body>
   <header>
     <nav>
@@ -79,26 +98,37 @@
   </header>
 
   <main class="project-details">
-    <h2>Pricing Strategy & Customer Ordering Behavior Analysis</h2>
-
-    <section>
-      <h3>Dataset Understanding</h3>
-      <p>
-        In the evolving restaurant industry, data-driven decision-making is crucial for both new and established businesses. This project uses real-world restaurant data to solve two core problems using machine learning:
-      </p>
-
-      <ul>
-        <li>Predicting the cost for two people based on restaurant characteristics.</li>
-        <li>Classifying whether an order is placed online or offline.</li>
-      </ul>
+    <h2>Dataset Understanding</h2>
 
       <p>
-        These insights help restaurants optimize their pricing strategies and digital operations, while giving platforms like Zomato valuable tools to support their partners. Using a mix of regression and classification models, the project delivers actionable business recommendations powered by interpretable machine learning.
+       The dataset comprises 656 blood-derived DNA methylation samples, each profiled using the Illumina 450K BeadChip array, resulting in 473,040 CpG features per sample. 
+       Each CpG site captures methylation levels at specific genomic locations, enabling detailed epigenetic profiling. 
+       The goal is to predict an individual's chronological age based on these high-dimensional methylation signatures.</p>
+
+         
+      <h3>Diversity of the Data</h3>
+      <div class="image-grid">
+       <img src="img/Biomarkers/1.png" alt="Image 1">
+       <img src="img/Biomarkers/2.png" alt="Image 2">
+       <img src="img/Biomarkers/3.png" alt="Image 3">
+       <img src="img/Biomarkers/4.png" alt="Image 4">
+       <img src="img/Biomarkers/5.png" alt="Image 5">
+       <img src="img/Biomarkers/6.png" alt="Image 6">
+      </div>
+
+      <p>
+      In the exploratory analysis, we observed that participant ages range from 19 to 101 years, with a peak density between 55 and 75 — offering a strong signal for age prediction modeling. 
+      The dataset exhibits some source imbalance, with nearly half the samples sourced from UCSD, followed by Utah, USC, and a smaller subset from Boston. 
+      Gender distribution is balanced, with 51.5% females and 48.5% males. Ethnically, the dataset is predominantly composed of Caucasian-European individuals (64.9%) and a significant representation of Hispanic-Mexican participants (35.1%). 
+      Additionally, samples were processed across 10 different plates with minor unevenness, which may introduce batch effects worth accounting for during model training.
       </p>
-
-
-
       <h3>Data Preprocessing</h3>
+      <p>Due to the high dimensionality of the dataset, which includes over 473,000 CpG features, it is both computationally intensive and biologically unnecessary to use all features in machine learning models. 
+        To reduce dimensionality and focus on the most informative signals, we computed the Pearson correlation between each CpG site's methylation value and the target variable, age_years. 
+        We then selected features with an absolute correlation coefficient (|r|) of 0.5 or higher, indicating a strong relationship with age. 
+        This filtering resulted in a reduced feature set of 405 CpG sites that are strongly associated with chronological aging.
+      </p>
+      <!--<h3>Data Preprocessing</h3>
       <p>
         The raw dataset initially contained several formatting issues, including missing values, categorical strings, and unnecessary columns. Label encoding was applied to handle categorical variables, missing cost and rating data were filled using median imputation, and feature scaling was performed. These preprocessing steps cleaned and prepared the dataset for regression modeling.      
       </p>
@@ -174,7 +204,7 @@
         <a href="index.html" class="cta">← Back to Portfolio</a>
       </div>
     </section>
-  </main>
+  </main>-->
 
   <footer>
     <p>Designed and Developed by <span>Jayandhan</span></p>
