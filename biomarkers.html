@@ -12,57 +12,82 @@
       background-color: #000;
       color: #fff;
     }
+
     header nav {
       text-align: left;
       padding: 1rem;
     }
+
     .logo {
       font-size: 1.2rem;
       color: #7FDBFF;
     }
+
     main {
       max-width: 900px;
       margin: 0 auto;
       text-align: center;
       padding: 20px;
     }
-    .project-details h2 {
+
+    h2, h3 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-top: 40px;
+      color: #7FDBFF;
     }
+
     section {
       text-align: justify;
       margin-bottom: 30px;
     }
+
     img {
       max-width: 100%;
       height: auto;
       display: block;
       margin: 15px auto;
     }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      max-width: 1000px;
+      margin: 20px auto;
+    }
+
+    .image-grid img {
+      width: 300px;
+      height: 180px;
+      border-radius: 8px;
+    }
+
     .image-row {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       gap: 10px;
       margin: 20px 0;
     }
+
     .image-row img {
-      width: 30%;
+      max-width: 300px;
+      height: auto;
     }
-    .half-width img {
-      width: 45%;
-    }
+
     ul {
       text-align: left;
-      display: inline-block;
+      margin: 10px 0;
     }
+
     footer {
       text-align: center;
       padding: 1rem;
       background-color: #111;
-      margin-top: 20px;
+      margin-top: 40px;
     }
+
     .cta {
       color: #7FDBFF;
       text-decoration: none;
@@ -72,25 +97,22 @@
 </head>
 <head>
   <meta charset="UTF-8">
-  <title>2x3 Image Grid</title>
+  <title>Two Large Images Side by Side</title>
   <style>
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 columns */
-      gap: 15px; /* space between images */
-      max-width: 1000px;
-      margin: 20px auto;
+    .image-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px; /* spacing between images */
     }
 
-    .image-grid img {
-      width: 300px;
-      height: 180px;
-      display: block;
-      border-radius: 8px;
+    .image-container img {
+      width: 500px;  /* Increase width */
+      height: auto;  /* Maintain aspect ratio */
     }
   </style>
 </head>
 <body>
+
   <header>
     <nav>
       <a href="index.html"><span class="logo">HOME</span></a>
@@ -98,113 +120,103 @@
   </header>
 
   <main class="project-details">
-    <h2>Dataset Understanding</h2>
+    <h2>DNA Methylation and Epigenetic Aging</h2>
+    <p>DNA methylation is both a hallmark and a potential driver of aging. While aging alters methylation patterns over time, certain changes may also regulate biological aging processes like inflammation and cell cycle control. As one of the most consistent epigenetic markers, methylation enables the creation of accurate epigenetic clocks. This project combines biological insight with interpretable machine learning to explore these patterns, with implications for longevity science and personalized health monitoring.</p>
 
+    <h3>Dataset Understanding</h3>
+
+    <section>
       <p>
-       The dataset comprises 656 blood-derived DNA methylation samples, each profiled using the Illumina 450K BeadChip array, resulting in 473,040 CpG features per sample. 
-       Each CpG site captures methylation levels at specific genomic locations, enabling detailed epigenetic profiling. 
-       The goal is to predict an individual's chronological age based on these high-dimensional methylation signatures.</p>
-
-         
-      <h3>Diversity of the Data</h3>
-      <div class="image-grid">
-       <img src="img/Biomarkers/1.png" alt="Image 1">
-       <img src="img/Biomarkers/2.png" alt="Image 2">
-       <img src="img/Biomarkers/3.png" alt="Image 3">
-       <img src="img/Biomarkers/4.png" alt="Image 4">
-       <img src="img/Biomarkers/5.png" alt="Image 5">
-       <img src="img/Biomarkers/6.png" alt="Image 6">
-      </div>
-
-      <p>
-      In the exploratory analysis, we observed that participant ages range from 19 to 101 years, with a peak density between 55 and 75 — offering a strong signal for age prediction modeling. 
-      The dataset exhibits some source imbalance, with nearly half the samples sourced from UCSD, followed by Utah, USC, and a smaller subset from Boston. 
-      Gender distribution is balanced, with 51.5% females and 48.5% males. Ethnically, the dataset is predominantly composed of Caucasian-European individuals (64.9%) and a significant representation of Hispanic-Mexican participants (35.1%). 
-      Additionally, samples were processed across 10 different plates with minor unevenness, which may introduce batch effects worth accounting for during model training.
+        The dataset comprises 656 blood-derived DNA methylation samples, each profiled using the Illumina 450K BeadChip array, resulting in 473,040 CpG features per sample. Each CpG site captures methylation levels at specific genomic locations, enabling detailed epigenetic profiling. The goal is to predict an individual's chronological age based on these high-dimensional methylation signatures.
       </p>
-      <h3>Data Preprocessing</h3>
-      <p>Due to the high dimensionality of the dataset, which includes over 473,000 CpG features, it is both computationally intensive and biologically unnecessary to use all features in machine learning models. 
-        To reduce dimensionality and focus on the most informative signals, we computed the Pearson correlation between each CpG site's methylation value and the target variable, age_years. 
-        We then selected features with an absolute correlation coefficient (|r|) of 0.5 or higher, indicating a strong relationship with age. 
-        This filtering resulted in a reduced feature set of 405 CpG sites that are strongly associated with chronological aging.
-      </p>
-      <!--<h3>Data Preprocessing</h3>
-      <p>
-        The raw dataset initially contained several formatting issues, including missing values, categorical strings, and unnecessary columns. Label encoding was applied to handle categorical variables, missing cost and rating data were filled using median imputation, and feature scaling was performed. These preprocessing steps cleaned and prepared the dataset for regression modeling.      
-      </p>
-
-      <h3>Exploratory Data Analysis</h3>
-      <p>
-        The distribution of the target variable — cost for two people — showed a clear right skew, with a few restaurants being significantly more expensive. Missing values in key columns such as rate and cost were handled using median imputation. Irrelevant fields were removed, categorical variables were label-encoded, and numerical features were scaled using StandardScaler. These preprocessing steps ensured the dataset was clean and compatible with both regression and classification models. To assess feature significance, t-tests were performed, revealing strong correlations between cost and features such as location, rating, and restaurant type.
-      </p>
-
-      <h3>Modeling</h3>
-      <p>
-        Initial modeling began with simple linear regression, which exhibited clear underfitting. The relationship between features such as restaurant type and price was found to be non-linear, prompting a shift to tree-based models. Among these, Random Forest performed best out of the box, achieving a test R² score of 0.96. 
-      </p>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/without tuning.jpg" alt="Combination Scatter Plot" width="600" height="500">
-
-      <p>
-        RandomizedSearchCV was employed to tune the Random Forest model and address overfitting. Interestingly, the untuned model produced a lower test RMSE but showed signs of overfitting due to an extremely low training error. After tuning, the model became more generalizable and balanced, albeit with a slightly higher RMSE. This demonstrated that hyperparameter tuning is not solely focused on maximizing accuracy, but rather on enhancing model consistency and fairness on unseen data. 
-      </p>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/with tuning.png" alt="Combination Scatter Plot" width="600" height="500">
-
-      <h3>Insights & Feature Interpretation</h3>
-
-      <p>
-        To interpret the model, feature importances from a decision tree were analyzed. The most influential predictors of cost were found to be book_table and rest_type, which aligns with expectations, as premium restaurants often require reservations. In contrast, online_order showed minimal impact on pricing decisions. 
-      </p>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/regression feature.png" alt="Combination Scatter Plot" width="600" height="500">
-      <ul>
-        <li>Table booking availability and restaurant type are the strongest predictors of cost — these are operational choices owners can control.</li>
-        <li>Customer engagement metrics like votes and ratings, while useful for reviews, play a smaller role in predicting actual pricing.</li>
-        <li>Features like online ordering and city listing have negligible impact on pricing strategy.</li>
-      </ul>
-      <p>
-        For restaurants aiming to position themselves as premium or justify higher pricing, offering table reservations and adopting higher-end formats such as fine dining can serve as strong signals of value to customers. These features are commonly associated with upscale experiences and may influence customer perception and willingness to pay.
-      </p>
-
-
-      <h2>What Influences Online Orders: A Classification Approach</h2>
-      <p>Analyzing restaurant features to classify and understand the likelihood of online ordering.</p>
-
-      <h3>Exploratory Data Analysis</h3>
-      <p>Analysis of the dataset revealed that online orders outnumber offline ones, indicating that online ordering is the most common behavior among restaurants. A grouped bar chart comparing order types across locations showed that areas such as Koramangala, BTM, and Indiranagar have significantly higher volumes of online orders. This suggests that location plays a key role, with more urban or central areas favoring online ordering.
-
-        A boxplot comparing the approximate cost for two people by order type revealed a clear pattern: online orders are more prevalent in the low-to-mid cost range, while high-cost restaurants predominantly rely on offline (dine-in or fine dining) orders. This indicates an inverse correlation between cost and the likelihood of online ordering.
-      </p>
-
-      <h3>Statistical Testing</h3>
-      <p>To statistically validate the exploratory findings, ANOVA and Pearson correlation tests were conducted. Several continuous features—such as cost, rating, location, and restaurant type—exhibited statistically significant relationships with online ordering behavior. In contrast, none of the original categorical variables showed significance through ANOVA, likely due to the effects of label encoding. These insights informed and refined the feature selection process for the subsequent classification model.
-      </p>
-      <h3>Model Performance</h3>
-
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/classification.png" alt="Combination Scatter Plot" width="600" height="500">
-      <p>Multiple classification models were benchmarked to predict online ordering behavior. Among them, Random Forest delivered the best overall performance, achieving 89% accuracy and an F1 score of 0.91—indicating strong balance in handling both classes. Cohen’s Kappa was also used to assess agreement beyond chance, with Random Forest again scoring highest, reinforcing its reliability. While models such as XGBoost and KNN performed well, Random Forest provided the optimal trade-off between predictive performance and interpretability.
-      </p>
-
-      <h3>Feature Importance</h3>
-      <img src="D:/portfolio/Portfolio-Website/img/zomato/classification feature.png" alt="Combination Scatter Plot" width="600" height="500">
-      <p>After training the Random Forest classifier, feature importance analysis was conducted to identify key drivers of online ordering behavior. The results showed that popularity (measured by vote count) and cuisine variety were the most influential factors. Lower-cost restaurants also tended to receive more online orders, aligning with the notion that customers often reserved dine-in experiences for premium occasions but prefer online orders for quick, affordable meals.
-
-        Interestingly, restaurant rating had comparatively lower influence, suggesting that when it comes to online ordering, customers may prioritize availability, variety, and cost over reviews or ratings.
-      </p>
-
-      <h3>Inference</h3>
-      <p>This project demonstrates how the same restaurant dataset can be leveraged to solve two different real-world problems:</p>
-      <ul>
-        <li>Helping new restaurants price smartly</li>
-        <li>Helping existing restaurants adapt for online customer behavior</li>
-      </ul>
-
-      <p>By combining regression and classification models with EDA and statistical testing, we were able to uncover data-driven, actionable insights that can guide both operational decisions and digital strategy for restaurant businesses.
-      </p>
-      
-      <div style="margin-top: 2rem;">
-        <a href="index.html" class="cta">← Back to Portfolio</a>
-      </div>
     </section>
-  </main>-->
+
+    <h3>Diversity of the Data</h3>
+    <div class="image-grid">
+      <img src="img/Biomarkers/1.png" alt="Image 1">
+      <img src="img/Biomarkers/2.png" alt="Image 2">
+      <img src="img/Biomarkers/3.png" alt="Image 3">
+      <img src="img/Biomarkers/4.png" alt="Image 4">
+      <img src="img/Biomarkers/5.png" alt="Image 5">
+      <img src="img/Biomarkers/6.png" alt="Image 6">
+    </div>
+
+    <section>
+      <p>
+        In the exploratory analysis, we observed that participant ages range from 19 to 101 years, with a peak density between 55 and 75 — offering a strong signal for age prediction modeling. The dataset exhibits some source imbalance, with nearly half the samples sourced from UCSD, followed by Utah, USC, and a smaller subset from Boston. Gender distribution is balanced, with 51.5% females and 48.5% males. Ethnically, the dataset is predominantly composed of Caucasian-European individuals (64.9%) and a significant representation of Hispanic-Mexican participants (35.1%). Additionally, samples were processed across 10 different plates with minor unevenness, which may introduce batch effects worth accounting for during model training.
+      </p>
+    </section>
+
+    <h3>Data Preprocessing</h3>
+    <section>
+      <p>
+        Due to the high dimensionality of the dataset, it is computationally intensive and biologically unnecessary to use all features in machine learning models. We computed the Pearson correlation between each CpG site's methylation value and the target variable, age_years. We selected features with an absolute correlation coefficient (|r|) ≥ 0.5. This filtering resulted in 405 CpG sites that are strongly associated with chronological aging.
+      </p>
+    </section>
+
+    <h3>Model Building and Evaluation</h3>
+    <div class="image-row">
+      <img src="img/Biomarkers/Random forest.png" alt="Random Forest">
+      <img src="img/Biomarkers/XG boost.png" alt="XGBoost">
+      <img src="img/Biomarkers/Elasticnet.png" alt="ElasticNet">
+    </div>
+
+    <section>
+      <p>
+        All three models perform reasonably well, but ElasticNetCV provides the most balanced and accurate predictions across the age spectrum, with residuals showing the least spread and a close fit to the ideal prediction line.
+      </p>
+      <img src="img/Biomarkers/Comparison.png" alt="Model Comparison">
+      <p>
+        Despite the nonlinear capabilities of tree-based models, ElasticNetCV outperformed both Random Forest and XGBoost — likely due to the strong linear signal in the selected CpG features and the regularization benefits of ElasticNet.
+      </p>
+
+      <img src="img/Biomarkers/Top 20 Elasticnet.png" alt="Top 20 CpG Sites">
+      <p>
+        The bar chart visualizes the <strong>top 20 CpG sites</strong> ranked by the absolute value of their ElasticNet coefficients. A higher absolute coefficient indicates a stronger contribution to the model’s prediction of chronological age.
+      </p>
+      <ul>
+        <li><strong>Positive coefficients</strong> (e.g., <code>cg16867657</code>, <code>cg14361627</code>) suggest that higher methylation levels at those sites are associated with higher predicted age.</li>
+        <li><strong>Negative coefficients</strong> (e.g., <code>cg10501210</code>, <code>cg1820962</code>) indicate that increased methylation is linked to younger predicted age.</li>
+      </ul>
+      <p>
+        The site <code>cg16867657</code> emerged as the most influential with a strong positive coefficient of <strong>13.26</strong>, while <code>cg10501210</code> had the strongest negative effect at <strong>–11.50</strong>.
+      </p>
+    </section>
+
+    <h2>Male | Female Comparison</h2>
+    <section>
+      <p>
+        To explore potential sex-specific epigenetic patterns, we separated the dataset by gender and examined whether the same CpG sites contribute to age prediction in males and females. This allows us to investigate whether age-associated methylation markers are consistent across sexes or if distinct features drive aging signals in each group.
+      </p>
+      <img src="img/Biomarkers/Male Female.png" alt="Male Female Comparison">
+    </section>
+
+    <h3>Interpretation and Inference</h3>
+    <section>
+    <p>Retrieved genomic annotations for top CpG sites using the IlluminaHumanMethylation450kanno.ilmn12.hg19 Bioconductor package in R, mapping each site to its chromosome, position, associated gene, and regulatory region.</p>
+    </section>
+    <div class="image-container">
+    <img src="img/Biomarkers/Female Inference.png" alt="Image 1">
+    <img src="img/Biomarkers/Male inference.png" alt="Image 2">
+    </div>
+    <section>
+    <p>The CpG sites cg16867657 (chr6), cg14361624 (chr7), and cg10501210 (chr1) were among the most contributing features in both male and female models. 
+       The recurrence of these sites across sexes underscores their potential role as robust, sex-independent epigenetic biomarkers.</p>
+    <p>Notably, cg16867657, cg04826368, and cg01820962, all located on chromosome 6, ranked among the top 8 most predictive CpG features in the male model. 
+      This suggests a potential male-specific epigenetic signature on chr6, highlighting its role in age-associated methylation patterns.</p>
+    <p>While chromosome 2 appeared in the top features for both male and female models, it was more prominent in females, with four CpG sites ranked among the top contributors. However, given the modest sample size (~650 samples), these observations should be interpreted cautiously. A larger, more diverse dataset may help confirm whether these chromosome-specific patterns are biologically significant or sample-dependent.</p>
+
+    <p>One particularly notable site, cg11847992, had a strong negative coefficient and ranked as the second most predictive feature in the female model. Its exclusive appearance in the female-specific feature set suggests it may be involved in early-age methylation regulation uniquely in females, warranting further investigation.</p>
+    </section>
+
+
+
+
+    <div style="margin-top: 2rem;">
+      <a href="index.html" class="cta">← Back to Portfolio</a>
+    </div>
+
+  </main>
 
   <footer>
     <p>Designed and Developed by <span>Jayandhan</span></p>
